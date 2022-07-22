@@ -1,0 +1,22 @@
+{
+  "extends": "eslint:recommended",
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2021
+  },
+  "rules": {
+    "no-console": "off",
+    "prefer-const": "error",
+    "no-var": "error",
+    "no-unused-vars": "error",
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "comma-style": ["error", "last"],
+    "no-shadow": ["error", { "allow": ["err", "resolve", "reject"] }],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "yoda": "error"
+  }
+}

@@ -1,2 +1,3 @@
-# Vote-Checker
-A simple bot that checks the users who voted for the server in question.
+# discord-voting-system
+
+A simple web server to receive webhook responses from topgg and voidbots platforms.
