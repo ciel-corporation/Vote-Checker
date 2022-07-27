@@ -3,4 +3,7 @@ package-lock.json
 node_modules
 shrinkwrap.yaml
 .glitch-assets
-src/config.json
+src/config.jsonk
+.replit
+replit.nix
+.config/
