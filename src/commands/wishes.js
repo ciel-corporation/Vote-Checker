@@ -1,7 +1,14 @@
+const config = require("../config.json");
 const { stripIndents } = require("common-tags");
 const { User } = require("../database/");
-const config = require("../config.json");
-const { SlashCommandBuilder, EmbedBuilder, time } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  time,
+  ButtonStyle,
+  ActionRowBuilder,
+  ButtonBuilder,
+} = require("discord.js");
 
 class Wishes extends SlashCommandBuilder {
   constructor() {
@@ -10,6 +17,9 @@ class Wishes extends SlashCommandBuilder {
   }
 
   async code(client, interaction) {
+    const topggEmoji = client.emojis.cache.get("987567488051081226");
+    const voidEmoji = client.emojis.cache.get("987567472037224523");
+
     const user = await User.findById(interaction.user.id);
     const { wishes, cooldowns } = user;
 
@@ -32,11 +42,39 @@ class Wishes extends SlashCommandBuilder {
     `;
 
     const embed = new EmbedBuilder({
+      author: {
+        name: "Sistema de votos",
+        icon_url: voidEmoji.url,
+      },
       description: description,
       color: config.colorEmbed,
     });
 
-    interaction.editReply({ embeds: [embed] });
+    const urls = {
+      bot_topgg: `https://top.gg/bot/${client.user.id}`,
+      server_topgg: `https://top.gg/servers/${config.guildId}`,
+      bot_voidbots: `https://voidbots.net/bot/${client.user.id}`,
+    };
+
+    const row = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setEmoji(topggEmoji.toString())
+        .setLabel("Ciel Topgg")
+        .setURL(urls.bot_topgg)
+        .setStyle(ButtonStyle.Link),
+      new ButtonBuilder()
+        .setEmoji(voidEmoji.toString())
+        .setLabel("Ciel Voidbots")
+        .setURL(urls.bot_voidbots)
+        .setStyle(ButtonStyle.Link),
+      new ButtonBuilder()
+        .setEmoji(topggEmoji.toString())
+        .setLabel("Server Topgg")
+        .setURL(urls.server_topgg)
+        .setStyle(ButtonStyle.Link)
+    );
+
+    interaction.editReply({ embeds: [embed], components: [row] });
   }
 }
 
