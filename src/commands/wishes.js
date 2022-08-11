@@ -1,80 +1,82 @@
-const config = require("../config.json");
+/* eslint-disable indent */
+
+const { UserSchema, cooldown } = require("ciel-utils");
 const { stripIndents } = require("common-tags");
-const { User } = require("../database/");
+const { colorEmbed, guildId, mainBotClientId } = require("../config.json");
 const {
   SlashCommandBuilder,
   EmbedBuilder,
-  time,
-  ButtonStyle,
   ActionRowBuilder,
   ButtonBuilder,
+  ButtonStyle,
+  time,
 } = require("discord.js");
 
 class Wishes extends SlashCommandBuilder {
   constructor() {
     super();
     this.setDescription("See your votes");
+    this.urls = {
+      cielTopgg: "https://top.gg/bot/" + mainBotClientId,
+      cielVoidBots: "https://voidbots.net/bot/" + mainBotClientId,
+      serverTopgg: "https://top.gg/servers/" + guildId,
+    };
   }
 
   async code(client, interaction) {
     const topggEmoji = client.emojis.cache.get("987567488051081226");
-    const voidEmoji = client.emojis.cache.get("987567472037224523");
+    const voidbotsEmoji = client.emojis.cache.get("987567472037224523");
 
-    const user = await User.findById(interaction.user.id);
-    const { wishes, cooldowns } = user;
-
-    const backIn = (timestamp) => {
-      if (timestamp === 0) return "Já pode votar";
-
-      const cooldown = 43200000; // 12 hours
-      const now = Date.now();
-      const date = cooldown - (now - timestamp);
-
-      return time(new Date(now + date), "R");
-    };
+    const user = await UserSchema.findById(interaction.user.id);
+    const {
+      wishes,
+      cooldowns: { wishes: cooldowns },
+    } = user;
 
     const description = stripIndents`
-    > Vote para para ganhar algumas recompensas, e isso tbm nos ajudar muito <:very_happy:1001253201032515614>.
-    
-		Ciel Topgg: ${wishes.bot_topgg}  (${backIn(cooldowns.bot_topgg)}) 
-    Ciel VoidBots: ${wishes.bot_void}  (${backIn(cooldowns.bot_void)}) 
-    Server Topgg: ${wishes.server_topgg}  (${backIn(cooldowns.server_topgg)})
-    `;
+    > Vote para guanhar algumas recompensas, e isso tmb nos ajuda muito <:very_happy:977910300718284810>." +
+      
+    Ciel Topgg: **${wishes.bot.topgg}** (${this.calcCooldown(
+      cooldowns.topgg_bot
+    )})
+    Ciel VoidBots **${wishes.bot.voidbots}** (${this.calcCooldown(
+      cooldowns.voidbots_bot
+    )})
+      Server Topgg: **${wishes.server.topgg}** (${this.calcCooldown(
+      cooldowns.topgg_server
+    )})`;
 
-    const embed = new EmbedBuilder({
-      author: {
-        name: "Sistema de votos",
-        icon_url: voidEmoji.url,
-      },
-      description: description,
-      color: config.colorEmbed,
-    });
-
-    const urls = {
-      bot_topgg: `https://top.gg/bot/${client.user.id}`,
-      server_topgg: `https://top.gg/servers/${config.guildId}`,
-      bot_voidbots: `https://voidbots.net/bot/${client.user.id}`,
-    };
+    const embed = new EmbedBuilder()
+      .setAuthor({ name: "Sistema de votos", iconURL: voidbotsEmoji.url })
+      .setDescription(stripIndents`${description}`)
+      .setColor(colorEmbed);
 
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setEmoji(topggEmoji.toString())
+        .setEmoji(topggEmoji.id)
+        .setURL(this.urls.cielTopgg)
         .setLabel("Ciel Topgg")
-        .setURL(urls.bot_topgg)
         .setStyle(ButtonStyle.Link),
       new ButtonBuilder()
-        .setEmoji(voidEmoji.toString())
+        .setEmoji(voidbotsEmoji.id)
+        .setURL(this.urls.cielVoidBots)
         .setLabel("Ciel Voidbots")
-        .setURL(urls.bot_voidbots)
         .setStyle(ButtonStyle.Link),
       new ButtonBuilder()
-        .setEmoji(topggEmoji.toString())
+        .setEmoji(topggEmoji.id)
+        .setURL(this.urls.serverTopgg)
         .setLabel("Server Topgg")
-        .setURL(urls.server_topgg)
         .setStyle(ButtonStyle.Link)
     );
 
     interaction.editReply({ embeds: [embed], components: [row] });
+  }
+
+  calcCooldown(timestamp) {
+    const [released, timeLeft] = cooldown(timestamp, 43200000);
+
+    if (released) return "Já pode votar";
+    else return time(new Date(Date.now() + timeLeft));
   }
 }
 

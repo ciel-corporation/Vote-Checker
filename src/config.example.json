@@ -1,12 +1,14 @@
 {
-  "TOPGG_AUTH_TOKEN": "",
-  "VOIDBOTS_AUTH_TOKEN": "",
-  "ownerId": "",
+  "TOPGG_BOT_TOKEN": "",
+  "VOID_BOT_TOKEN": "",
+  "VOID_SERVER_TOKEN": "",
+  "ownerIds": "",
+  "mainBotClientId": "",
   "clientId": "",
   "guildId": "",
-	"colorEmbed": "",
+  "colorEmbed": "",
   "channelId": "",
   "roleId": "",
-  "tokenBot": "",
-  "tokenData": ""
+  "botToken": "",
+  "dataToken": ""
 }

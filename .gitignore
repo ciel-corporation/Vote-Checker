@@ -4,6 +4,3 @@ node_modules
 shrinkwrap.yaml
 .glitch-assets
 src/config.json
-.replit
-replit.nix
-.config/

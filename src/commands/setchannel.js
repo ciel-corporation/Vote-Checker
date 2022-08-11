@@ -18,7 +18,10 @@ class SetChannel extends SlashCommandBuilder {
     const tokens = require("../config.json");
     tokens.channelId = channel.id;
 
-    await fs.writeFileSync( "./src/config.json", JSON.stringify(tokens, null, 2));
+    await fs.writeFileSync(
+      "./src/config.json",
+      JSON.stringify(tokens, null, 2)
+    );
     interaction.editReply("Channel successfully set!");
   }
 }
