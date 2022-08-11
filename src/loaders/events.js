@@ -15,7 +15,7 @@ async function Events(client) {
 
     delete require.cache[require.resolve(`../events/${eventName}`)];
   }
-  console.log("[EVENTS] - all events have been loaded");
+  console.log("[EVENTS] - All events have been loaded");
 }
 
 module.exports = Events;

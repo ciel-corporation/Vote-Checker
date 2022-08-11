@@ -1,8 +1,7 @@
+const { Collection, Routes } = require("discord.js");
 const config = require("../config.json");
-const { Collection } = require("discord.js");
 const { readdirSync } = require("fs");
 const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
 
 async function Commands(client) {
   client.commands = new Collection();
@@ -22,13 +21,13 @@ async function Commands(client) {
     delete require.cache[require.resolve(`../commands/${file}`)];
   }
 
-  const rest = new REST({ version: "9" }).setToken(config.tokenBot);
+  const rest = new REST({ version: "9" }).setToken(config.botToken);
 
   await rest.put(Routes.applicationCommands(config.clientId), {
     body: allCommands,
   });
 
-  console.log("[COMMANDS] - all commands have been loaded.");
+  console.log("[COMMANDS] - All commands have been loaded");
 }
 
 module.exports = Commands;

@@ -1,26 +1,20 @@
 {
-  "name": "vote-checker",
+  "name": "vote-manager",
   "version": "1.0.0",
-  "description": "A simple bot that checks the users who voted for the server in question.",
-  "main": "node ./src/index.js",
+  "main": "./src/index.js",
   "scripts": {
     "start": "node ./src/index.js"
   },
   "dependencies": {
-    "@discordjs/rest": "^1.0.0",
+    "ciel-utils": "ciel-corporation/Ciel-Utils",
     "common-tags": "^1.8.2",
-    "discord-api-types": "^0.36.2",
-    "discord.js": "^14.0.3",
-    "dotenv": "^16.0.1",
+    "discord.js": "^14.1.1",
     "express": "^4.18.1",
-    "mongoose": "^6.4.7"
+    "mongoose": "^6.5.0"
   },
   "engines": {
     "node": "16.x"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/useful-bots/vote-checker.git"
-  },
+  "author": "HarukaYamamoto0 - github",
   "license": "MIT"
 }

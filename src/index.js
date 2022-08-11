@@ -1,16 +1,13 @@
 const { Client } = require("discord.js");
 const config = require("./config.json");
-require("dotenv").config();
 
 (async () => {
   const client = new Client({ intents: 3258367 });
+  await client.login(config.botToken);
+
   module.exports = client;
-
-  await client.login(config.tokenBot);
-  await require("./database/").connect();
   await require("./loaders/")(client);
-  await require("./server.js");
-  await require("./modules/getUsersVoted.js")();
-
-  console.log("Index successfully loaded");
+  await require("./database/").connect();
+  await require("./utils/roleManager.js").getUsersVoted();
+  await require("./server/server.js").listen(process.env.PORT || 3000);
 })();
