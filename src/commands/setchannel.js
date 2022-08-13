@@ -13,12 +13,12 @@ class SetChannel extends SlashCommandBuilder {
     );
   }
 
-  async code(client, interaction) {
+  async code(_client, interaction) {
     const channel = interaction.options.getChannel("channel");
     const tokens = require("../config.json");
     tokens.channelId = channel.id;
 
-    await fs.writeFileSync(
+    fs.writeFileSync(
       "./src/config.json",
       JSON.stringify(tokens, null, 2)
     );

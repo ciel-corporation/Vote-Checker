@@ -8,7 +8,6 @@ class Ping extends SlashCommandBuilder {
 
   async code(client, interaction) {
     interaction.editReply(`My ping is **${client.ws.ping}ms**`);
-    process.exit(1);
   }
 }
 

@@ -1,6 +1,9 @@
 .env
+.config/
+replit.nix
 package-lock.json
 node_modules
 shrinkwrap.yaml
 .glitch-assets
 src/config.json
+yarn-error.log

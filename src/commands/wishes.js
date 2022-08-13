@@ -34,7 +34,7 @@ class Wishes extends SlashCommandBuilder {
     } = user;
 
     const description = stripIndents`
-    > Vote para guanhar algumas recompensas, e isso tmb nos ajuda muito <:very_happy:977910300718284810>." +
+    > Vote para guanhar algumas recompensas, e isso tmb nos ajuda muito <:very_happy:977910300718284810>.
       
     Ciel Topgg: **${wishes.bot.topgg}** (${this.calcCooldown(
       cooldowns.topgg_bot
