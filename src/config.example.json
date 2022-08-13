@@ -1,7 +1,7 @@
 {
   "TOPGG_BOT_TOKEN": "",
-  "VOID_BOT_TOKEN": "",
-  "VOID_SERVER_TOKEN": "",
+  "VOIDBOTS_BOT_TOKEN": "",
+  "VOIDBOTS_SERVER_TOKEN": "",
   "ownerIds": "",
   "mainBotClientId": "",
   "clientId": "",

@@ -1,4 +1,6 @@
 .env
+.config/
+replit.nix
 package-lock.json
 node_modules
 shrinkwrap.yaml
